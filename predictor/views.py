@@ -10,6 +10,9 @@ def home(response):
 def risk_assessment(response):
     return render(response, "features/risk_assessment.html")
 
+def about(response):
+    return render(response, "features/about.html")
+
 def register(response):
     if response.method == "POST":
         form = UserCreationForm(response.POST)
@@ -23,5 +26,6 @@ def register(response):
 
 def login(response):
     return render(response, "registration/login.html")
+
 
 # Create your views here.
