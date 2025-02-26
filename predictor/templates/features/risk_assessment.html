@@ -2,6 +2,95 @@
 
 {% block content %}
 
- <p>Welcome to the Risk assessment page</p>
+
+<!-- Risk Assessment Page -->
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Heart Disease Risk Assessment</h2>
+
+    <!-- Form for Risk Assessment -->
+    <form method="POST" action="{% url 'risk' %}">
+        {% csrf_token %}
+        
+        <div class="row">
+            <div class="col-md-6">
+                <div class="mb-3">
+                    <label for="age" class="form-label">Age</label>
+                    <input type="number" class="form-control" id="age" name="age" required>
+                </div>
+                <div class="mb-3">
+                    <label for="gender" class="form-label">Gender</label>
+                    <select class="form-select" id="gender" name="gender" required>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="cholesterol" class="form-label">Cholesterol Level</label>
+                    <input type="number" class="form-control" id="cholesterol" name="cholesterol" required>
+                </div>
+                <div class="mb-3">
+                    <label for="blood_pressure" class="form-label">Blood Pressure</label>
+                    <input type="number" class="form-control" id="blood_pressure" name="blood_pressure" required>
+                </div>
+                <div class="mb-3">
+                    <label for="heart_rate" class="form-label">Heart Rate</label>
+                    <input type="number" class="form-control" id="heart_rate" name="heart_rate" required>
+                </div>
+                <div class="mb-3">
+                    <label for="smoking" class="form-label">Smoking</label>
+                    <select class="form-select" id="smoking" name="smoking" required>
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="mb-3">
+                    <label for="alcohol" class="form-label">Alcohol Intake</label>
+                    <select class="form-select" id="alcohol" name="alcohol" required>
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="exercise_hours" class="form-label">Exercise Hours per Week</label>
+                    <input type="number" class="form-control" id="exercise_hours" name="exercise_hours" required>
+                </div>
+                <div class="mb-3">
+                    <label for="family_history" class="form-label">Family History of Heart Disease</label>
+                    <select class="form-select" id="family_history" name="family_history" required>
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="diabetes" class="form-label">Diabetes</label>
+                    <select class="form-select" id="diabetes" name="diabetes" required>
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="obesity" class="form-label">Obesity</label>
+                    <select class="form-select" id="obesity" name="obesity" required>
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="stress_level" class="form-label">Stress Level</label>
+                    <input type="number" class="form-control" id="stress_level" name="stress_level" required>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary btn-lg">Submit</button>
+        </div>
+    </form>
+
+</div>
 
 {% endblock %}
+
