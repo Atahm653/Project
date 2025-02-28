@@ -8,7 +8,7 @@
     <h2 class="text-center mb-4">Heart Disease Risk Assessment</h2>
 
     <!-- Form for Risk Assessment -->
-    <form method="POST" action="{% url 'risk' %}">
+    <form method="POST" action="{% url 'predict' %}">
         {% csrf_token %}
         
         <div class="row">

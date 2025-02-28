@@ -8,5 +8,5 @@ urlpatterns = [
     path("risk", views.risk_assessment, name="risk"),
     path("register", views.register, name="register"),
     path("login", views.login, name="login"),
-    path("predict", views.predict, name="predict"),
+    path("predict", views.prediction_result, name="predict"),
 ]

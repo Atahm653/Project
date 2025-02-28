@@ -1,0 +1,8 @@
+html
+<!-- predict_result.html -->
+{% extends 'features/main.html' %}
+{% block content %}
+    <h1>Prediction Result</h1>
+    <p>Your risk for heart disease is: <strong>{{ result }}</strong></p>
+    <a href="{% url 'risk_assessment' %}" class="btn btn-primary">Back to Risk Assessment</a>
+{% endblock %}
