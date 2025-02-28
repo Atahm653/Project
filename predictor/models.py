@@ -27,11 +27,16 @@ class RiskAssessment(models.Model):
     blood_pressure = models.IntegerField(max_length=3, null=True)
     heart_rate = models.IntegerField(max_length=3, null=True)
     smoking = models.CharField(max_length=10, null=True)
-    alcohol = models.CharField(max_length=10, null=True)
+    alcohol_intake = models.CharField(max_length=10, null=True)
     diabetes = models.CharField(max_length=10, null=True)
     family_history = models.CharField(max_length=10, null=True)
     obesity = models.CharField(max_length=10, null=True)
-    stress = models.CharField(max_length=10, null=True)
+    stress_level = models.CharField(max_length=10, null=True)
+    blood_sugar = models.CharField(max_length=10, null=True)
+    exercise_induced_angina = models.CharField(max_length=10, null=True)
+    chest_pain_type = models.CharField(max_length=10, null=True)
+
+
 
     def __str__(self):
         return self.result
