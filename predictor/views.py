@@ -31,7 +31,7 @@ def login(response):
 
 
 
-knn_model = joblib.load('predictor/knn_model.pkl')
+knn_model = joblib.load('knn_model.pkl')
 
 
 def predict(request):
@@ -55,6 +55,7 @@ def predict(request):
         input_data = [[ age, gender, cholesterol, blood_pressure, heart_rate, smoking, alcohol_intake, exercise_hours, diabetes, family_history, obesity, stress_level, blood_sugar, chest_pain_type, exercise_induced_angina]]
         prediction = knn_model.predict(input_data)
         prediction_result = "Heart Disease" if prediction == 1 else "No Heart Disease"
+        
         return render(request, 'features/predict.html', {'prediction_result': prediction_result})
 
 
