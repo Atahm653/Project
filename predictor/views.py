@@ -34,12 +34,6 @@ def register(response):
 def login(response):
     return render(response, "registration/login.html")
 
-
-
-
-knn_model = joblib.load('knn_model.pkl')
-
-
 def prediction_result(request):
     if request.method == 'POST':
         age = request.POST.get('age')
