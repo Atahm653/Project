@@ -9,6 +9,8 @@ from sklearn.neighbors import KNeighborsClassifier
 
 
 knn_model = joblib.load('knn_model.pkl')
+scaler = joblib.load('scaler.pkl')
+
 
 
 def home(response):
