@@ -4,6 +4,9 @@ from django.http import HttpResponse
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
 import numpy as np
+from sklearn.neighbors import KNeighborsClassifier
+
+
 
 knn_model = joblib.load('knn_model.pkl')
 
