@@ -7,7 +7,7 @@ import numpy as np
 from sklearn.neighbors import KNeighborsClassifier
 
 
-
+# Load the model from the file
 knn_model = joblib.load('knn_model.pkl')
 scaler = joblib.load('scaler.pkl')
 
@@ -54,7 +54,8 @@ def prediction_result(request):
         chest_pain_type = request.POST.get('chest_pain_type')
         exercise_induced_angina = request.POST.get('exercise')
 
-        input_data = [[ age, gender, cholesterol, blood_pressure, heart_rate, smoking, alcohol_intake, exercise_hours, diabetes, family_history, obesity, stress_level, blood_sugar, chest_pain_type, exercise_induced_angina]]
+        input_data =np.array([[ age, gender, cholesterol, blood_pressure, heart_rate, smoking, alcohol_intake, exercise_hours, diabetes, family_history, obesity, stress_level, blood_sugar, chest_pain_type, exercise_induced_angina]])
+        print(input_data)
         prediction = knn_model.predict(input_data)
         prediction_result = "Heart Disease" if prediction == 1 else "No Heart Disease"
         

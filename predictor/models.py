@@ -61,6 +61,7 @@ class RiskAssessment(models.Model):
     heart_rate = models.IntegerField(null=True)
     smoking = models.PositiveIntegerField(choices=smoking, null=True)
     alcohol_intake = models.PositiveIntegerField(choices=alcohol_intake, null=True)
+    exeercise_hours = models.IntegerField(null=True)
     diabetes = models.PositiveIntegerField(choices=diabetes, null=True)
     family_history = models.PositiveIntegerField(choices=family_history, null=True)
     obesity = models.PositiveIntegerField(choices=obesity, null=True)
