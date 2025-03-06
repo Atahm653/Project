@@ -38,24 +38,26 @@ def login(response):
 
 def prediction_result(request):
     if request.method == 'POST':
-        age = request.POST.get('age')
-        gender = request.POST.get('gender')
-        cholesterol = request.POST.get('cholesterol')
-        blood_pressure = request.POST.get('blood_pressure')
-        heart_rate = request.POST.get('heart_rate')
-        smoking = request.POST.get('smoking')
-        alcohol_intake = request.POST.get('alcohol')
-        exercise_hours = request.POST.get('exercise_hours')
-        diabetes = request.POST.get('diabetes')
-        family_history = request.POST.get('family_history')
-        obesity = request.POST.get('obesity')
-        stress_level = request.POST.get('stress_level')
-        blood_sugar = request.POST.get('blood_sugar')
-        chest_pain_type = request.POST.get('chest_pain_type')
-        exercise_induced_angina = request.POST.get('exercise')
+        age = float(request.POST.get('age'))
+        gender = float(request.POST.get('gender'))
+        cholesterol = float(request.POST.get('cholesterol'))
+        blood_pressure = float(request.POST.get('blood_pressure'))
+        heart_rate = float(request.POST.get('heart_rate'))
+        smoking = float(request.POST.get('smoking'))
+        alcohol_intake = float(request.POST.get('alcohol_intake'))
+        exercise_hours = float(request.POST.get('exercise_hours'))
+        family_history = float(request.POST.get('family_history'))
+        diabetes = float(request.POST.get('diabetes'))
+        obesity = float(request.POST.get('obesity'))
+        stress_level = float(request.POST.get('stress_level'))
+        blood_sugar = float(request.POST.get('blood_sugar'))
+        exercise_induced_angina = float(request.POST.get('exercise'))
+        chest_pain_type = float(request.POST.get('chest_pain_type'))
+        
 
-        input_data =np.array([[ age, gender, cholesterol, blood_pressure, heart_rate, smoking, alcohol_intake, exercise_hours, diabetes, family_history, obesity, stress_level, blood_sugar, chest_pain_type, exercise_induced_angina]])
-        print(input_data)
+        input_data =np.array([[ age, gender, cholesterol, blood_pressure, heart_rate, smoking, alcohol_intake, exercise_hours, family_history, diabetes, obesity, stress_level, blood_sugar,  exercise_induced_angina, chest_pain_type]])
+        input_data = scaler.transform(input_data)
+
         prediction = knn_model.predict(input_data)
         prediction_result = "Heart Disease" if prediction == 1 else "No Heart Disease"
         
