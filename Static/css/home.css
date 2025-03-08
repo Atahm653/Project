@@ -1,0 +1,34 @@
+.hero-section {
+    background-image: url('https://via.placeholder.com/1600x900.png?text=Heart+Disease+Prevention');
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    color: white;
+    display: flex;
+    font-family:sans-serif;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.overlay {
+    background-color: rgba(0, 0, 0, 0.5);
+    width: 100%;
+    height: 100%;
+    position: absolute;
+}
+
+.container {
+    position: relative;
+    z-index: 1;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+}
