@@ -1,8 +1,14 @@
-html
-<!-- predict_result.html -->
 {% extends 'features/main.html' %}
 {% block content %}
-    <h1>Prediction Result</h1>
-    <p>Your risk for heart disease is: <strong>{{ result }}</strong></p>
-    <a href="{% url 'risk_assessment' %}" class="btn btn-primary">Back to Risk Assessment</a>
+
+
+<h1>Prediction Result</h1>
+{% if prediction_result %}
+    <p>Your risk for heart disease is: <strong>{{ prediction_result }}</strong></p>
+{% endif %}
+{% if error %}
+    <p style="color: red;">Error: {{ error }}</p>
+{% endif %}
+<a href="{% url 'risk' %}" class="btn btn-primary">Back to Risk Assessment</a>
+
 {% endblock %}

@@ -32,10 +32,16 @@
         <div class="input-box">
             <input type="password" class="input-field" placeholder="Confirm Password" autocomplete="off" required>
         </div>
-        <div class="input-submit">
+
+        <form action = "{% url 'register' %}" method="post">
+            {% csrf_token %}
+            <div class="input-submit">
             <button class="submit-button" id="submit"></button>
             <label for="submit">Sign Up</label>
           </div>
+        </form>
+        <div class="sign-in-link">
+            <p>Already have an account? <a href="{% url 'login' %}">Sign In</a></p>
     </div>
 </body>
 </html>
