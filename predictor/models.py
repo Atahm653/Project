@@ -65,10 +65,10 @@ class RiskAssessment(models.Model):
     family_history = models.PositiveIntegerField(choices=family_history, null=True)
     diabetes = models.PositiveIntegerField(choices=diabetes, null=True)
     obesity = models.PositiveIntegerField(choices=obesity, null=True)
-    stress_level = models.CharField(max_length=10, null=True)
-    blood_sugar = models.CharField(max_length=10, null=True)
-    exercise_induced_angina = models.CharField(max_length=10, null=True)
-    chest_pain_type = models.CharField(max_length=10, null=True)
+    stress_level = models.PositiveIntegerField(max_length=10, null=True)
+    blood_sugar = models.IntegerField(max_length=10, null=True)
+    exercise_induced_angina = models.IntegerField(max_length=10, null=True)
+    chest_pain_type = models.IntegerField(max_length=10, null=True)
 
 
 

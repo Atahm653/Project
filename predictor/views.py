@@ -38,6 +38,7 @@ def login(response):
 
 def prediction_result(request):
     if request.method == 'POST':
+      try:
         age = float(request.POST.get('age'))
         gender = float(request.POST.get('gender'))
         cholesterol = float(request.POST.get('cholesterol'))
@@ -51,15 +52,18 @@ def prediction_result(request):
         obesity = float(request.POST.get('obesity'))
         stress_level = float(request.POST.get('stress_level'))
         blood_sugar = float(request.POST.get('blood_sugar'))
-        exercise_induced_angina = float(request.POST.get('exercise'))
+        exercise_induced_angina = float(request.POST.get('exercise_induced_angina'))
         chest_pain_type = float(request.POST.get('chest_pain_type'))
+
+      except ValueError:
+            print("Invalid Input")
         
 
-        input_data =np.array([[ age, gender, cholesterol, blood_pressure, heart_rate, smoking, alcohol_intake, exercise_hours, family_history, diabetes, obesity, stress_level, blood_sugar,  exercise_induced_angina, chest_pain_type]])
-        input_data = scaler.transform(input_data)
+    input_data =np.array([[ age, gender, cholesterol, blood_pressure, heart_rate, smoking, alcohol_intake, exercise_hours, family_history, diabetes, obesity, stress_level, blood_sugar,  exercise_induced_angina, chest_pain_type]])
+    input_data = scaler.transform(input_data)
 
-        prediction = knn_model.predict(input_data)
-        prediction_result = "Heart Disease" if prediction == 1 else "No Heart Disease"
+    prediction = knn_model.predict(input_data)
+    prediction_result = "Heart Disease" if prediction == 1 else "No Heart Disease"
         
     return render(request, 'features/predict.html', {'prediction_result': prediction_result})
 
