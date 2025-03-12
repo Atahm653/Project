@@ -36,6 +36,9 @@ def login(response):
 knn_model = joblib.load('models/knn_model.pkl')
 scaler = joblib.load('models/scaler.pkl')
 
+print("Scaler type:", type(scaler))
+print("KNN model type:", type(knn_model))
+
 def prediction_result(request):
     if request.method == 'POST':
         try:
