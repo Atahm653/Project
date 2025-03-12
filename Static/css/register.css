@@ -79,3 +79,11 @@ a:hover{
     background: #333;
     transform: scale(1.05,1);
 }
+.sign-in-link{
+    text-align:center;
+    margin-top:20px;
+}
+.sign-in-link a{
+    color:black;
+    font-weight:600;
+}
