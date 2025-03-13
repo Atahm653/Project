@@ -11,7 +11,8 @@ body{
     justify-content:center;
     align-items:center;
     min-height:100vh;
-    background-color: aqua;
+    background-color:#f0f0f0;
+    margin-top:250px;
 }
 
 .login-box{
@@ -64,7 +65,7 @@ section{
     display:flex;
     align-items:center;
     font-size:15px;
-    color:aqua;
+    color:white;
 }
 a{
     text-decoration:none;
@@ -114,19 +115,10 @@ section a{
     color:black;
     font-weight:600;
 }
-footer {
-    background-color: #333;
-    color: #ffffff;
-    text-align: center;
-    padding: 20px;
-}
-
-footer p {
-    margin: 0;
-}
-
-footer a {
-    color: #ffffff;
-    margin: 0 10px;
+footer{
+    position:relative;
+    margin-top:150px;
+    margin-bottom:0;
+    width:100%;
 }
 
