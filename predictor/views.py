@@ -70,8 +70,7 @@ def prediction_result(request):
 
             return render(request, 'features/prediction_result.html', {'prediction_result': prediction_result})
 
-        except ValueError:
-            return render(request, 'features/prediction_result.html', {'error': 'Invalid input: Please enter numeric values'})
+        
         except Exception as e:
             return render(request, 'features/prediction_result.html', {'error': f'An error occurred: {str(e)}'})
 

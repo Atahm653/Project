@@ -32,6 +32,18 @@ obesity = (
     (1, 'yes')
 )
 
+exercise_induced_angina = (
+    (0, 'no'),
+    (1, 'yes')
+)
+
+chest_pain_type = (
+    (0, 'none'),
+    (1, 'non-anginal pain'),
+    (2, 'atypical angina'),
+    (3, 'typical angina')
+)
+
 
 class Patient(models.Model):
     name = models.CharField(max_length=100, null=True)
@@ -67,8 +79,8 @@ class RiskAssessment(models.Model):
     obesity = models.PositiveIntegerField(choices=obesity, null=True)
     stress_level = models.PositiveIntegerField(null=True)
     blood_sugar = models.IntegerField(null=True)
-    exercise_induced_angina = models.IntegerField(null=True)
-    chest_pain_type = models.IntegerField(null=True)
+    exercise_induced_angina = models.IntegerField(choices=exercise_induced_angina, null=True)
+    chest_pain_type = models.IntegerField(choices=chest_pain_type, null=True)
 
 
 
