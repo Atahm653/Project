@@ -39,6 +39,9 @@ scaler = joblib.load('models/scaler.pkl')
 print("Scaler type:", type(scaler))
 print("KNN model type:", type(knn_model))
 
+print("Scaler mean:", scaler.mean_)  # Should show an array of means if fitted
+print("Scaler std:", scaler.scale_)  # Should show an array of standard deviations if fitted
+
 def prediction_result(request):
     if request.method == 'POST':
         try:

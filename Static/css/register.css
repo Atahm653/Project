@@ -9,10 +9,12 @@ body{
     place-items:center;
     min-height:100vh;
     margin-top:auto;
+    flex-direction: column;
 }
 .register-box{
     display:flex;
     justify-content:center;
+    align-items:center;
     flex-direction:column;
     width:440px;
     height:480px;
@@ -88,10 +90,4 @@ a:hover{
 .sign-in-link a{
     color:black;
     font-weight:600;
-}
-footer{
-    position:relative;
-    margin-top:150px;
-    margin-bottom:0;
-    width:100%;
 }
