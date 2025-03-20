@@ -45,26 +45,17 @@ chest_pain_type = (
 )
 
 
-class Patient(models.Model):
-    name = models.CharField(max_length=100, null=True)
-    age = models.IntegerField(null=True)
-    gender = models.PositiveIntegerField(null=True)
+class UserRegistration(models.Model):
+    username = models.CharField(max_length=100, null=True)
     email = models.EmailField(max_length=100, null=True)
+    password = models.CharField(max_length=100,null=True)
+    password2= models.CharField(max_length=100,null=True)
     date_created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.name
 
-class Prediction(models.Model):
-    patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
-    result = models.CharField(max_length=100)
-    date_predicted = models.DateTimeField(auto_now_add=True)
 
-    def __str__(self):
-        return self.result
-    
-
-    
 class RiskAssessment(models.Model):
     age = models.IntegerField(null=True)
     gender = models.PositiveIntegerField(choices=sex, null=True)
@@ -86,4 +77,13 @@ class RiskAssessment(models.Model):
 
     def __str__(self):
         return self.result
+    
+class Prediction(models.Model):
+    risk_assessment = models.ForeignKey(RiskAssessment, on_delete=models.CASCADE, null=True)
+    result = models.CharField(max_length=100)
+    date_predicted = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.result
+    
 
