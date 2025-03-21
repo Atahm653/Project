@@ -1,19 +1,21 @@
-body{
+body {
     background-color: #f0f0f0;
     font-family: Arial, sans-serif;
-    margin:0px;
+    margin: 0px;
     margin-top: 150px;
     padding: 0px;
     color: #333;
     text-align: center;
 }
-.header{
-    background-color:#ffffff;
-    padding:2opx;
-    display:flex;
+
+.header {
+    background-color: #ffffff;
+    padding: 20px;
+    display: flex;
     justify-content: space-between;
-    align-items:center;
+    align-items: center;
 }
+
 .header nav ul {
     list-style: none;
     display: flex;
@@ -30,6 +32,10 @@ body{
     color: #333;
 }
 
+.main-content {
+    min-height: 100vh;
+    overflow: visible;
+}
 
 .main-content h2 {
     font-size: 36px;
@@ -41,7 +47,7 @@ body{
     margin-bottom: 40px;
 }
 
-.main-content button {
+.main-content .action-button {
     background-color: white;
     color: #ffffff;
     padding: 15px 30px;
@@ -51,13 +57,12 @@ body{
     cursor: pointer;
 }
 
-
 footer {
     background-color: #333;
     color: #ffffff;
     text-align: center;
     padding: 20px;
-    width:100%;
+    width: 100%;
 }
 
 footer p {
@@ -69,4 +74,3 @@ footer a {
     text-decoration: underline;
     margin: 0 10px;
 }
-

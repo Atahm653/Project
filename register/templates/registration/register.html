@@ -16,33 +16,46 @@
     <title>Register</title>
 </head>
 <body>
-    <div class="register-box">
-        <div class="register-header">
-            <header>Register</header>
+   <style>
+        body {
+            margin: 0 !important;
+            padding: 0 !important;
+            overflow-y: auto !important;
+            min-height: 100vh !important;
+        }
+    </style>
+    
+    <div class="register-wrapper">
+        <div class="register-box">
+            <div class="register-header">
+                <header>Register</header>
+            </div>
+            <div class="input-box">
+                <input type="text" class="input-field" placeholder="Username" autocomplete="off" required>
+            </div>
+            <div class="input-box">
+                <input type="email" class="input-field" placeholder="Email" autocomplete="off" required>
+            </div>
+            <div class="input-box">
+                <input type="password" class="input-field" placeholder="Password" autocomplete="off" required>
+            </div>
+            <div class="input-box">
+                <input type="password" class="input-field" placeholder="Confirm Password" autocomplete="off" required>
+            </div>
+    
+            <form action="{% url 'register' %}" method="post">
+                {% csrf_token %}
+                <form action="{% url 'register' %}" method="post">
+                    {% csrf_token %}
+                    <div class="input-submit">
+                        <button class="submit-button" id="submit" style="width: 100%; height: 60px; background: black; border: none; border-radius: 30px; cursor: pointer; display: flex; justify-content: center; align-items: center; color: white; font-size: 16px; font-family: 'Poppins', sans-serif;">Sign Up</button>
+                    </div>
+                </form>
+            </form>
+            <div class="sign-in-link">
+                <p>Already have an account? <a href="{% url 'login' %}">Sign In</a></p>
+            </div>
         </div>
-        <div class="input-box">
-          <input type="text" class="input-field" placeholder="Username" autocomplete="off" required>
-        </div>
-        <div class="input-box">
-           <input type="email" class="input-field" placeholder="Email" autocomplete="off" required>
-        </div>
-        <div class="input-box">
-            <input type="password" class="input-field" placeholder="Password" autocomplete="off" required>
-        </div>
-        <div class="input-box">
-            <input type="password" class="input-field" placeholder="Confirm Password" autocomplete="off" required>
-        </div>
-
-        <form action = "{% url 'register' %}" method="post">
-            {% csrf_token %}
-            <div class="input-submit">
-            <button class="submit-button" id="submit"></button>
-            <label for="submit">Sign Up</label>
-          </div>
-        </form>
-        <div class="sign-in-link">
-            <p>Already have an account? <a href="{% url 'login' %}">Sign In</a></p>
     </div>
-</body>
-</html>
+
 {% endblock %}

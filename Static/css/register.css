@@ -1,93 +1,121 @@
-*{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
 }
-body{
-    display:grid;
-    place-items:center;
-    min-height:100vh;
-    margin-top:auto;
+
+body {
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow-y: auto !important;
+    min-height: 100vh !important;
+    background-color: #f0f0f0;
+    font-family: Arial, sans-serif;
+    color: #333;
+    text-align: center;
+}
+
+.register-wrapper {
+    display: flex;
     flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    padding: 40px 20px;
+    background-color: #f0f0f0;
+    box-sizing: border-box;
+    overflow-y: auto;
 }
-.register-box{
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    flex-direction:column;
-    width:440px;
-    height:480px;
-    padding:30px;
-    margin-top:100px;
+
+.register-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 440px;
+    height: auto;
+    min-height: 480px;
+    padding: 30px;
+    background-color: #ffffff;
+    box-shadow: none !important;
 }
-.register-header{
-    text-align:center;
-    font-size:24px 0 40px 0;
+
+.register-header {
+    text-align: center;
+    margin: 24px 0 40px 0;
 }
-.register-header header{
-    color:black;
-    font-size:30px;
-    font-weight:600;
+
+.register-header header {
+    color: black;
+    font-size: 30px;
+    font-weight: 600;
 }
-.input-box .input-field{
-    width:100%;
+
+.input-box .input-field {
+    width: 100%;
     height: 60px;
-    font-size:17px;
+    font-size: 17px;
     padding: 0 20px;
-    margin-top:15px;
-    margin-bottom:15px;
-    border-radius:30px;
-    border:none;
-    box-shadow: 0 0 10px 0 rgba(0,0,0,0.1);
-    outline:none;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    border-radius: 30px;
+    border: none;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+    outline: none;
 }
-::placeholder{
-    font-weight:500;
-    color:#333;
+
+::placeholder {
+    font-weight: 500;
+    color: #333;
 }
-.input-field:focus{
-    width:100%;
+
+.input-field:focus {
+    width: 100%;
 }
-a{
+
+a {
     text-decoration: none;
 }
-a:hover{
-    text-decoration:underline;
+
+a:hover {
+    text-decoration: underline;
 }
-.input-submit{
-    position:relative;
+
+.input-submit {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    width: 100%;
 }
-.submit-button{
-    width:100%;
-    height:60px;
-    background:black;
-    border:none;
-    border-radius:30px;
-    cursor:pointer;
+
+.register-wrapper .register-box .input-submit button.submit-button#submit {
+    width: 100%;
+    height: 60px;
+    background: black;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
     transition: .3s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 16px;
+    font-family: 'Poppins', sans-serif;
 }
-.input-submit label{
-    position:absolute;
-    top:45%;
-    left:50%;
-    color:white;
-    -webkit-transform: translate(-50%,-50%);
-    -ms-transform: translate(-50%,-50%);;
-    transform: translate(-50%,-50%);
-}
-.register-button:hover{
+
+.register-wrapper .register-box .input-submit button.submit-button#submit:hover {
     background: #333;
+    transform: scale(1.05, 1);
 }
-.submit-btn:hover{
-    background: #333;
-    transform: scale(1.05,1);
+
+.sign-in-link {
+    text-align: center;
+    margin-top: 20px;
 }
-.sign-in-link{
-    text-align:center;
-    margin-top:20px;
-}
-.sign-in-link a{
-    color:black;
-    font-weight:600;
+
+.sign-in-link a {
+    color: black;
+    font-weight: 600;
 }
