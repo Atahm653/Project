@@ -25,19 +25,7 @@ body {
     background-color: #f0f0f0;
     box-sizing: border-box;
     overflow-y: auto;
-}
-
-.register-box {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    width: 440px;
-    height: auto;
-    min-height: 480px;
-    padding: 30px;
-    background-color: #ffffff;
-    box-shadow: none !important;
+    margin-top:90px;
 }
 
 .register-header {
