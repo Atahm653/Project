@@ -3,33 +3,35 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
+from .forms import CustomRegistrationForm
 import numpy as np
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.preprocessing import StandardScaler
 
 
-def home(response):
-    return render(response, "features/home.html")
+def home(request):
+    return render(request, "features/home.html")
 
-def risk_assessment(response):
-    return render(response, "features/risk_assessment.html")
+def risk_assessment(request):
+    return render(request, "features/risk_assessment.html")
 
-def about(response):
-    return render(response, "features/about.html")
+def about(request):
+    return render(request, "features/about.html")
 
-def register(response):
-    if response.method == "POST":
-        form = UserCreationForm(response.POST)
+def register(request):
+    if request.method == "POST":
+        form = CustomRegistrationForm(request.POST)
         if form.is_valid():
-            form.save()
+            user = form.save()
         return redirect ("/home")
     else:
-       form = UserCreationForm()
+       form = CustomRegistrationForm()
        
-    return render(response, "registration/register.html", {"form":form})
+    return render(request, "registration/register.html", {"form":form})
 
-def login(response):
-    return render(response, "registration/login.html")
+def login(request):
+    return render(request, "registration/login.html")
 
 
 # Load the model from the file
@@ -39,8 +41,8 @@ scaler = joblib.load('models/scaler.pkl')
 print("Scaler type:", type(scaler))
 print("KNN model type:", type(knn_model))
 
-print("Scaler mean:", scaler.mean_)  # Should show an array of means if fitted
-print("Scaler std:", scaler.scale_)  # Should show an array of standard deviations if fitted
+print("Scaler mean:", scaler.mean_)  
+print("Scaler std:", scaler.scale_)  
 
 def prediction_result(request):
     if request.method == 'POST':
