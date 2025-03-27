@@ -1,6 +1,7 @@
 import joblib
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
+from django.contrib import messages
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
@@ -24,7 +25,10 @@ def register(request):
         form = CustomRegistrationForm(request.POST)
         if form.is_valid():
             user = form.save()
-        return redirect ("/home")
+            messages.success(request, "Registration successful. You can now log in.")
+            return redirect ("/home")
+        else:
+            messages.error(request, "Unsuccessful registration. Invalid information.")
     else:
        form = CustomRegistrationForm()
        

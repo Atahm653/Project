@@ -12,6 +12,31 @@
         <div class="register-header">
             <header>Register</header>
         </div>
+
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert {% if message.tags %}{{ message.tags }}{% endif %}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        {% if form.errors %}
+            <div class="alert error">
+                <ul>
+                    {% for field in form %}
+                        {% for error in field.errors %}
+                            <li>{{ field.label }}: {{ error }}</li>
+                        {% endfor %}
+                    {% endfor %}
+                    {% for error in form.non_field_errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+
+
         <form action="{% url 'register' %}" method="post">
             {% csrf_token %}
             <div class="input-box">
@@ -21,7 +46,7 @@
                 <input type="email" name="email" class="input-field" placeholder="Email" autocomplete="off" required>
             </div>
             <div class="input-box">
-                <input type="password" name="password" class="input-field" placeholder="Password" autocomplete="off" required>
+                <input type="password" name="password1" class="input-field" placeholder="Password" autocomplete="off" required>
             </div>
             <div class="input-box">
                 <input type="password" name="password2" class="input-field" placeholder="Confirm Password" autocomplete="off" required>

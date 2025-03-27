@@ -1,4 +1,5 @@
 from django.db import models
+from .forms import User
 
 # Create your models here.
 
@@ -45,11 +46,8 @@ chest_pain_type = (
 )
 
 
-class UserRegistration(models.Model):
-    username = models.CharField(max_length=100, null=True)
-    email = models.EmailField(max_length=100, null=True)
-    password = models.CharField(max_length=100,null=True)
-    password2= models.CharField(max_length=100,null=True)
+class UserProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     date_created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
