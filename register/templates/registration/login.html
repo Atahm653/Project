@@ -6,21 +6,36 @@
 
 {% block content %}
 
-<link rel = "stylesheet" type = "text/css" href = "{% static 'css/login.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/login.css' %}">
 <!-- Login Page -->
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login Page</title>
 </head>
+
 <body>
   <div class="login-box">
     <div class="login-header">
       <header>Login</header>
     </div>
+
+    {% if messages %}
+    {% for message in messages %}
+    <div class="alert {% if message.tags == 'success' %}success{% else %}error{% endif %}">
+      {{ message }}
+      {% if message.tags == 'success' %}
+      <p><a href="{% url 'risk' %}">Go to Risk Assessment</a></p>
+      {% endif %}
+    </div>
+    {% endfor %}
+    {% endif %}
+
+
     <div class="input-box">
       <input type="text" class="input-field" placeholder="Username" autocomplete="off" required>
     </div>
@@ -32,18 +47,20 @@
         <a href="#">Forgot Password?</a>
       </section>
     </div>
-   <form action="{% url 'login' %}" method="post">
-    {% csrf_token %}
-    <div class="input-submit">
-      <button class="submit-button" id="submit"></button>
-      <label for="submit">Sign In</label>
-    </div>
+    <form action="{% url 'login' %}" method="post">
+      {% csrf_token %}
+      <div class="input-submit">
+        <button class="submit-button" id="submit"></button>
+        <label for="submit">Sign In</label>
+      </div>
     </form>
+  
     <div class="sign-up-link">
       <p>Don't have an account? <a href="{% url 'register' %}">Sign Up</p>
     </div>
-  
+
 </body>
+
 </html>
 
-{% endblock %}
+ {% endblock %}

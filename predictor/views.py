@@ -15,7 +15,7 @@ from sklearn.preprocessing import StandardScaler
 def home(request):
     return render(request, "features/home.html")
 
-@login_required
+
 def risk_assessment(request):
     return render(request, "features/risk_assessment.html")
 
@@ -63,7 +63,7 @@ print("KNN model type:", type(knn_model))
 print("Scaler mean:", scaler.mean_)  
 print("Scaler std:", scaler.scale_)  
 
-@login_required
+
 def prediction_result(request):
     if request.method == 'POST':
         try:
