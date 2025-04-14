@@ -1,16 +1,193 @@
-{% extends 'features/main.html' %}
-{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prediction Results - HeartGuard AI</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="dashboard-body">
+    <header class="dashboard-header">
+        <div class="container">
+            <div class="logo">
+                <i class="fas fa-heartbeat"></i>
+                <h1>HeartGuard<span>AI</span></h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="dashboard.html">Dashboard</a></li>
+                    <li><a href="history.html">History</a></li>
+                    <li><a href="profile.html">Profile</a></li>
+                    <li><a href="index.html" class="btn-secondary">Sign Out</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
 
+    <div class="dashboard-container">
+        <aside class="dashboard-sidebar">
+            <div class="user-profile">
+                <div class="user-avatar">
+                    <i class="fas fa-user"></i>
+                </div>
+                <h3>Welcome, User</h3>
+                <p>Last assessment: Today</p>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><a href="dashboard.html"><i class="fas fa-home"></i> Dashboard</a></li>
+                    <li><a href="#" class="active"><i class="fas fa-chart-line"></i> My Results</a></li>
+                    <li><a href="#"><i class="fas fa-history"></i> History</a></li>
+                    <li><a href="#"><i class="fas fa-user-cog"></i> Profile Settings</a></li>
+                    <li><a href="#"><i class="fas fa-question-circle"></i> Help & Support</a></li>
+                </ul>
+            </nav>
+            <div class="sidebar-footer">
+                <a href="index.html"><i class="fas fa-sign-out-alt"></i> Sign Out</a>
+            </div>
+        </aside>
 
-<h1>Prediction Result</h1>
-{% if prediction_result %}
-    <p>Your risk for heart disease is: <strong>{{ prediction_result }}</strong></p>
-{% endif %}
-{% if error %}
-    <p style="color: red;">Error: {{ error }}</p>
-{% endif %}
-<div class="input-submit">
-    <a href="{% url 'risk' %}" class="submit-button">Back to Risk Assessment</a>
-</div>
+        <main class="dashboard-main">
+            <div class="dashboard-header-bar">
+                <h2>Your Heart Health Results</h2>
+                <p>Assessment completed on April 11, 2023</p>
+            </div>
 
-{% endblock %}
+            <div class="results-container">
+                <div class="result-summary">
+                    <div class="result-gauge">
+                        <div class="gauge-value" style="--percentage: 25%;">
+                            <div class="gauge-fill"></div>
+                        </div>
+                        <div class="gauge-center">
+                            <h3>25%</h3>
+                            <p>Risk Level</p>
+                        </div>
+                    </div>
+                    <div class="result-interpretation">
+                        <h3>Low Risk of Heart Disease</h3>
+                        <p>Based on your provided information, our AI model predicts a low risk of heart disease. However, it's important to maintain a healthy lifestyle and regular check-ups.</p>
+                        <div class="result-actions">
+                            <a href="#" class="btn-primary"><i class="fas fa-download"></i> Download Report</a>
+                            <a href="#" class="btn-secondary"><i class="fas fa-share-alt"></i> Share with Doctor</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="result-details">
+                    <h3>Detailed Analysis</h3>
+                    
+                    <div class="result-cards">
+                        <div class="result-card">
+                            <div class="card-header">
+                                <i class="fas fa-heartbeat"></i>
+                                <h4>Heart Metrics</h4>
+                            </div>
+                            <div class="card-body">
+                                <ul class="metric-list">
+                                    <li>
+                                        <span class="metric-name">Blood Pressure:</span>
+                                        <span class="metric-value">120/80 mmHg</span>
+                                        <span class="metric-status normal">Normal</span>
+                                    </li>
+                                    <li>
+                                        <span class="metric-name">Cholesterol:</span>
+                                        <span class="metric-value">180 mg/dL</span>
+                                        <span class="metric-status normal">Normal</span>
+                                    </li>
+                                    <li>
+                                        <span class="metric-name">Heart Rate:</span>
+                                        <span class="metric-value">72 BPM</span>
+                                        <span class="metric-status normal">Normal</span>
+                                    </li>
+                                    <li>
+                                        <span class="metric-name">Blood Sugar:</span>
+                                        <span class="metric-value">95 mg/dL</span>
+                                        <span class="metric-status normal">Normal</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="result-card">
+                            <div class="card-header">
+                                <i class="fas fa-exclamation-triangle"></i>
+                                <h4>Risk Factors</h4>
+                            </div>
+                            <div class="card-body">
+                                <ul class="risk-list">
+                                    <li class="risk-item high">
+                                        <span class="risk-name">Smoking</span>
+                                        <span class="risk-impact">High Impact</span>
+                                    </li>
+                                    <li class="risk-item medium">
+                                        <span class="risk-name">Family History</span>
+                                        <span class="risk-impact">Medium Impact</span>
+                                    </li>
+                                    <li class="risk-item low">
+                                        <span class="risk-name">Stress Level</span>
+                                        <span class="risk-impact">Low Impact</span>
+                                    </li>
+                                    <li class="risk-item none">
+                                        <span class="risk-name">Exercise</span>
+                                        <span class="risk-impact">No Impact</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="recommendations">
+                        <h3>Recommendations</h3>
+                        <ul class="recommendation-list">
+                            <li>
+                                <i class="fas fa-check-circle"></i>
+                                <div>
+                                    <h4>Maintain Regular Exercise</h4>
+                                    <p>Continue with your current exercise routine of at least 150 minutes per week.</p>
+                                </div>
+                            </li>
+                            <li>
+                                <i class="fas fa-check-circle"></i>
+                                <div>
+                                    <h4>Healthy Diet</h4>
+                                    <p>Focus on a diet rich in fruits, vegetables, whole grains, and lean proteins.</p>
+                                </div>
+                            </li>
+                            <li>
+                                <i class="fas fa-exclamation-circle"></i>
+                                <div>
+                                    <h4>Quit Smoking</h4>
+                                    <p>Consider smoking cessation programs to reduce your heart disease risk significantly.</p>
+                                </div>
+                            </li>
+                            <li>
+                                <i class="fas fa-info-circle"></i>
+                                <div>
+                                    <h4>Regular Check-ups</h4>
+                                    <p>Schedule annual check-ups with your healthcare provider to monitor your heart health.</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="next-steps">
+                    <h3>Next Steps</h3>
+                    <div class="next-steps-buttons">
+                        <a href="dashboard.html" class="btn-secondary">New Assessment</a>
+                        <a href="#" class="btn-primary">Schedule Follow-up</a>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <footer class="dashboard-footer">
+        <div class="container">
+            <p>&copy; 2025 HeartGuard AI. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
