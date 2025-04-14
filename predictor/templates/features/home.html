@@ -1,10 +1,12 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HeartGuard AI - Heart Disease Prediction System</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
@@ -37,7 +39,7 @@
                 </div>
             </div>
             <div class="hero-image">
-                <img src="Gray_and_black_stethoscope_illustration__Dietary_supplement_Health_Heart_Cardiovascular_disease__Health_transparent_background_PNG_clipart-removebg-preview.png" alt="Heart health illustration">
+                <img src="/static/images/Gray_and_black_stethoscope_illustration__Dietary_supplement_Health_Heart_Cardiovascular_disease__Health_transparent_background_PNG_clipart-removebg-preview.png" alt="Heart health illustration"" alt="Heart health illustration">
             </div>
         </div>
     </section>
