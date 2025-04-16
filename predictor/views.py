@@ -6,7 +6,7 @@ from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .forms import CustomRegistrationForm
+from .forms import CustomRegistrationForm, CustomLoginForm
 import numpy as np
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.preprocessing import StandardScaler
@@ -37,20 +37,22 @@ def register(request):
     return render(request, "registration/register.html", {"form":form})
 
 def login(request):
-    if request.method == "POST":
-        username = request.POST.get("username")
-        password = request.POST.get("password")
-        user = authenticate(request, username=username, password=password)
-        if user is not None:
+    if request.method == 'POST':
+        form = CustomLoginForm(request.POST)
+        if form.is_valid():
+            user = form.get_user()
             login(request, user)
-            messages.success(request, "Successfully logged in.")
-            return redirect("/home")
             
-        else:
-            messages.error(request, "Invalid username or password.")
+            # Check if the user wants to be remembered
+            if not form.cleaned_data.get('remember_me'):
+                request.session.set_expiry(0)  
+            
+            
+            return redirect('risk') 
+    else:
+        form = CustomLoginForm()
     
-
-    return render(request, "registration/login.html")
+    return render(request, 'login.html', {'form': form})
 
 
 # Load the model from the file
