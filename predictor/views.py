@@ -52,7 +52,7 @@ def login(request):
     else:
         form = CustomLoginForm()
     
-    return render(request, 'login.html', {'form': form})
+    return render(request, "registration/login.html", {'form': form})
 
 
 # Load the model from the file

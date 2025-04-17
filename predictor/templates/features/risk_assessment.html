@@ -1,3 +1,5 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,7 +18,7 @@
             </div>
             <nav>
                 <ul>
-                    <li><a href="dashboard.html" class="active">Dashboard</a></li>
+                    <li><a href="risk_assessment.html" class="active">Dashboard</a></li>
                     <li><a href="history.html">History</a></li>
                     <li><a href="profile.html">Profile</a></li>
                     <li><a href="home" class="btn-secondary">Sign Out</a></li>
@@ -36,7 +38,7 @@
             </div>
             <nav class="sidebar-nav">
                 <ul>
-                    <li><a href="dashboard.html" class="active"><i class="fas fa-home"></i> Dashboard</a></li>
+                    <li><a href="risk_assessment.html" class="active"><i class="fas fa-home"></i> Dashboard</a></li>
                     <li><a href="#"><i class="fas fa-chart-line"></i> My Results</a></li>
                     <li><a href="#"><i class="fas fa-history"></i> History</a></li>
                     <li><a href="#"><i class="fas fa-user-cog"></i> Profile Settings</a></li>
@@ -44,7 +46,7 @@
                 </ul>
             </nav>
             <div class="sidebar-footer">
-                <a href="index.html"><i class="fas fa-sign-out-alt"></i> Sign Out</a>
+                <a href="home.html"><i class="fas fa-sign-out-alt"></i> Sign Out</a>
             </div>
         </aside>
 
@@ -55,7 +57,7 @@
             </div>
 
             <div class="assessment-form-container">
-                <form action="results.html" method="GET" class="assessment-form">
+                <form action="prediction_result.html" method="GET" class="assessment-form">
                     <div class="form-section">
                         <h3>Personal Information</h3>
                         <div class="form-row">
