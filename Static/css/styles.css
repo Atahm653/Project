@@ -1462,4 +1462,34 @@ input:focus, select:focus, textarea:focus {
     .team-grid, .partners-grid, .faq-grid {
         grid-template-columns: 1fr;
     }
+
+    .message-error {
+        color: red;
+        font-size: 0.9em;
+        margin-bottom: 10px;
+    }
+    
+    .message-success {
+        color: green;
+        font-size: 0.9em;
+        margin-bottom: 10px;
+    }
+    
+    .message-info {
+        color: blue;
+        font-size: 0.9em;
+        margin-bottom: 10px;
+    }
+    
+    .message-warning {
+        color: orange;
+        font-size: 0.9em;
+        margin-bottom: 10px;
+    }
+    
+    .message-debug {
+        color: gray;
+        font-size: 0.9em;
+        margin-bottom: 10px;
+    }
 }

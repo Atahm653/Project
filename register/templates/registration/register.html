@@ -37,8 +37,14 @@
                 <div class="auth-form">
                     <h2>Create Your Account</h2>
                     <p>Join HeartGuard AI to monitor and predict your heart health.</p>
+
+                    {% if messages %}
+                        {% for message in messages %}
+                            <p class="message-{{ message.tags|default:'info' }}">{{ message }}</p>
+                        {% endfor %}
+                    {% endif %}
                     
-                    <form action="dashboard.html" method="GET">
+                    <form method="POST" action="{% url 'register' %}">
                         <div class="form-group">
                             <label for="username">Username</label>
                             <div class="input-icon">

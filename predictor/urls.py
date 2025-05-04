@@ -7,6 +7,6 @@ urlpatterns = [
     path("about", views.about, name="about"),
     path("risk", views.risk_assessment, name="risk"),
     path("register", views.register, name="register"),
-    path("login", views.login, name="login"),
+    path("login", views.user_login, name="login"),
     path("predict", views.prediction_result, name="predict"),
 ]

@@ -2,19 +2,18 @@ import joblib
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib import messages
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from django.utils import timezone
 from .forms import CustomRegistrationForm, CustomLoginForm
 import numpy as np
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.preprocessing import StandardScaler
 
-
 def home(request):
     return render(request, "features/home.html")
-
 
 def risk_assessment(request):
     return render(request, "features/risk_assessment.html")
@@ -27,32 +26,57 @@ def register(request):
         form = CustomRegistrationForm(request.POST)
         if form.is_valid():
             user = form.save()
-            messages.success(request, "Registration successful. You can now log in.")
-            return redirect ("/home")
+            auth_login(request, user)
+            messages.success(request, "Registration successful. You are now logged in.")
+            return redirect("home")
         else:
-            messages.error(request, "Unsuccessful registration. Invalid information.")
-    else:
-       form = CustomRegistrationForm()
-       
-    return render(request, "registration/register.html", {"form":form})
+            for field, errors in form.errors.items():
+                for error in errors:
+                    messages.error(request, f"{field}: {error}")
 
-def login(request):
-    if request.method == 'POST':
-        form = CustomLoginForm(request.POST)
-        if form.is_valid():
-            user = form.get_user()
-            login(request, user)
-            
-            # Check if the user wants to be remembered
-            if not form.cleaned_data.get('remember_me'):
-                request.session.set_expiry(0)  
-            
-            
-            return redirect('risk') 
     else:
-        form = CustomLoginForm()
-    
-    return render(request, "registration/login.html", {'form': form})
+        storage = messages.get_messages(request)
+        storage.used = True
+    return render(request, "registration/register.html")
+
+def user_login(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        remember = request.POST.get('remember') == 'on'
+
+        if not username or not password:
+            messages.error(request, "Username and password are required.")
+            return render(request, "registration/login.html")
+
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            user.last_login = timezone.now()
+            user.save()
+            login(request, user)
+
+            if not remember:
+                request.session.set_expiry(0)
+
+            messages.success(request, "Login successful!")
+            return redirect('risk')
+
+        else:
+            if not User.objects.filter(username=username).exists():
+                messages.error(request, "User does not exist.")
+            else:
+                messages.error(request, "Invalid password.")
+            return render(request, "registration/login.html")
+
+    else:
+        storage = messages.get_messages(request)
+        storage.used = True
+        return render(request, "registration/login.html")
+
+def logout_view(request):
+    logout(request)
+    messages.success(request, "You have been logged out.")
+    return redirect('login')
 
 
 # Load the model from the file
