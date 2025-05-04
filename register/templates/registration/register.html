@@ -45,6 +45,7 @@
                     {% endif %}
                     
                     <form method="POST" action="{% url 'register' %}">
+                        {% csrf_token %}
                         <div class="form-group">
                             <label for="username">Username</label>
                             <div class="input-icon">
