@@ -57,7 +57,7 @@
             </div>
 
             <div class="assessment-form-container">
-                <form action="prediction_result.html" method="GET" class="assessment-form">
+                <form method="GET" action="{% url 'predict' %}" class="assessment-form">
                     <div class="form-section">
                         <h3>Personal Information</h3>
                         <div class="form-row">
@@ -71,7 +71,7 @@
                                     <option value="">Select gender</option>
                                     <option value="male">Male</option>
                                     <option value="female">Female</option>
-                                    <option value="other">Other</option>
+                                    <!--<option value="other">Other</option>-->
                                 </select>
                             </div>
                         </div>
@@ -87,9 +87,9 @@
                             <div class="form-group">
                                 <label for="blood-pressure">Blood Pressure (mmHg)</label>
                                 <div class="bp-inputs">
-                                    <input type="number" id="systolic" name="systolic" placeholder="Systolic" min="70" max="250" required>
-                                    <span>/</span>
-                                    <input type="number" id="diastolic" name="diastolic" placeholder="Diastolic" min="40" max="150" required>
+                                    <input type="number" id="blood-pressure" name="blood-pressure" min="70" max="250" required>
+                                    <!--<span>/</span>
+                                    <input type="number" id="diastolic" name="diastolic" placeholder="Diastolic" min="40" max="150" required>-->
                                 </div>
                             </div>
                         </div>
