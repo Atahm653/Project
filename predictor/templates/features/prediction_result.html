@@ -18,10 +18,10 @@
             </div>
             <nav>
                 <ul>
-                    <li><a href="risk_assessment.html">Dashboard</a></li>
-                    <li><a href="history.html">History</a></li>
-                    <li><a href="profile.html">Profile</a></li>
-                    <li><a href="home" class="btn-secondary">Sign Out</a></li>
+                    <li><a href="{% url 'risk' %}">Dashboard</a></li>
+                    <!--<li><a href="{% url 'history' %}">History</a></li>
+                    <li><a href="{% url 'profile' %}">Profile</a></li>-->
+                    <li><a href="{% url 'signout' %}" class="btn-secondary">Sign Out</a></li>
                 </ul>
             </nav>
         </div>
@@ -38,157 +38,145 @@
             </div>
             <nav class="sidebar-nav">
                 <ul>
-                    <li><a href="dashboard.html"><i class="fas fa-home"></i> Dashboard</a></li>
+                    <li><a href="{% url 'dashboard' %}"><i class="fas fa-home"></i> Dashboard</a></li>
                     <li><a href="#" class="active"><i class="fas fa-chart-line"></i> My Results</a></li>
-                    <li><a href="#"><i class="fas fa-history"></i> History</a></li>
-                    <li><a href="#"><i class="fas fa-user-cog"></i> Profile Settings</a></li>
-                    <li><a href="#"><i class="fas fa-question-circle"></i> Help & Support</a></li>
+                    <li><a href="{% url 'history' %}"><i class="fas fa-history"></i> History</a></li>
+                    <li><a href="{% url 'profile' %}"><i class="fas fa-user-cog"></i> Profile Settings</a></li>
+                    <li><a href="{% url 'support' %}"><i class="fas fa-question-circle"></i> Help & Support</a></li>
                 </ul>
             </nav>
             <div class="sidebar-footer">
-                <a href="home"><i class="fas fa-sign-out-alt"></i> Sign Out</a>
+                <a href="{% url 'signout' %}"><i class="fas fa-sign-out-alt"></i> Sign Out</a>
             </div>
         </aside>
 
         <main class="dashboard-main">
-            <div class="dashboard-header-bar">
-                <h2>Your Heart Health Results</h2>
-                <p>Assessment completed on April 11, 2023</p>
-            </div>
-
-            <div class="results-container">
-                <div class="result-summary">
-                    <div class="result-gauge">
-                        <div class="gauge-value" style="--percentage: 25%;">
-                            <div class="gauge-fill"></div>
-                        </div>
-                        <div class="gauge-center">
-                            <h3>25%</h3>
-                            <p>Risk Level</p>
-                        </div>
-                    </div>
-                    <div class="result-interpretation">
-                        <h3>Low Risk of Heart Disease</h3>
-                        <p>Based on your provided information, our AI model predicts a low risk of heart disease. However, it's important to maintain a healthy lifestyle and regular check-ups.</p>
-                        <div class="result-actions">
-                            <a href="#" class="btn-primary"><i class="fas fa-download"></i> Download Report</a>
-                            <a href="#" class="btn-secondary"><i class="fas fa-share-alt"></i> Share with Doctor</a>
-                        </div>
-                    </div>
+            {% if error %}
+                <div class="error-message">
+                    <h3>Error</h3>
+                    <p>{{ error }}</p>
+                </div>
+            {% else %}
+                <div class="dashboard-header-bar">
+                    <h2>Your Heart Health Results</h2>
+                    <p>Assessment completed on {{ assessment_date }}</p>
                 </div>
 
-                <div class="result-details">
-                    <h3>Detailed Analysis</h3>
-                    
-                    <div class="result-cards">
-                        <div class="result-card">
-                            <div class="card-header">
-                                <i class="fas fa-heartbeat"></i>
-                                <h4>Heart Metrics</h4>
+                <div class="results-container">
+                    <div class="result-summary">
+                        <div class="result-gauge">
+                            <div class="gauge-value" style="--percentage: {{ risk_percentage }}%;">
+                                <div class="gauge-fill"></div>
                             </div>
-                            <div class="card-body">
-                                <ul class="metric-list">
-                                    <li>
-                                        <span class="metric-name">Blood Pressure:</span>
-                                        <span class="metric-value">120/80 mmHg</span>
-                                        <span class="metric-status normal">Normal</span>
-                                    </li>
-                                    <li>
-                                        <span class="metric-name">Cholesterol:</span>
-                                        <span class="metric-value">180 mg/dL</span>
-                                        <span class="metric-status normal">Normal</span>
-                                    </li>
-                                    <li>
-                                        <span class="metric-name">Heart Rate:</span>
-                                        <span class="metric-value">72 BPM</span>
-                                        <span class="metric-status normal">Normal</span>
-                                    </li>
-                                    <li>
-                                        <span class="metric-name">Blood Sugar:</span>
-                                        <span class="metric-value">95 mg/dL</span>
-                                        <span class="metric-status normal">Normal</span>
-                                    </li>
-                                </ul>
+                            <div class="gauge-center">
+                                <h3>{{ risk_percentage }}%</h3>
+                                <p>Risk Level</p>
+                            </div>
+                        </div>
+                        <div class="result-interpretation">
+                            <h3>{{ risk_level }} Risk of Heart Disease</h3>
+                            <p>Based on your provided information, our AI model predicts a {{ risk_level | lower }} risk of heart disease. Maintain a healthy lifestyle and regular check-ups.</p>
+                            <div class="result-actions">
+                                <a href="#" class="btn-primary"><i class="fas fa-download"></i> Download Report</a>
+                                <a href="#" class="btn-secondary"><i class="fas fa-share-alt"></i> Share with Doctor</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="result-details">
+                        <h3>Detailed Analysis</h3>
+                        
+                        <div class="result-cards">
+                            <div class="result-card">
+                                <div class="card-header">
+                                    <i class="fas fa-heartbeat"></i>
+                                    <h4>Heart Metrics</h4>
+                                </div>
+                                <div class="card-body">
+                                    <ul class="metric-list">
+                                        <li>
+                                            <span class="metric-name">Blood Pressure:</span>
+                                            <span class="metric-value">{{ metrics.blood_pressure }}</span>
+                                            <span class="metric-status normal">Normal</span>
+                                        </li>
+                                        <li>
+                                            <span class="metric-name">Cholesterol:</span>
+                                            <span class="metric-value">{{ metrics.cholesterol }}</span>
+                                            <span class="metric-status normal">Normal</span>
+                                        </li>
+                                        <li>
+                                            <span class="metric-name">Heart Rate:</span>
+                                            <span class="metric-value">{{ metrics.heart_rate }}</span>
+                                            <span class="metric-status normal">Normal</span>
+                                        </li>
+                                        <li>
+                                            <span class="metric-name">Blood Sugar:</span>
+                                            <span class="metric-value">{{ metrics.blood_sugar }}</span>
+                                            <span class="metric-status normal">Normal</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <div class="result-card">
+                                <div class="card-header">
+                                    <i class="fas fa-exclamation-triangle"></i>
+                                    <h4>Risk Factors</h4>
+                                </div>
+                                <div class="card-body">
+                                    <ul class="risk-list">
+                                        <li class="risk-item {{ risk_factors.smoking | slugify }}">
+                                            <span class="risk-name">Smoking</span>
+                                            <span class="risk-impact">{{ risk_factors.smoking }}</span>
+                                        </li>
+                                        <li class="risk-item {{ risk_factors.family_history | slugify }}">
+                                            <span class="risk-name">Family History</span>
+                                            <span class="risk-impact">{{ risk_factors.family_history }}</span>
+                                        </li>
+                                        <li class="risk-item {{ risk_factors.stress_level | slugify }}">
+                                            <span class="risk-name">Stress Level</span>
+                                            <span class="risk-impact">{{ risk_factors.stress_level }}</span>
+                                        </li>
+                                        <li class="risk-item {{ risk_factors.exercise | slugify }}">
+                                            <span class="risk-name">Exercise</span>
+                                            <span class="risk-impact">{{ risk_factors.exercise }}</span>
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                         
-                        <div class="result-card">
-                            <div class="card-header">
-                                <i class="fas fa-exclamation-triangle"></i>
-                                <h4>Risk Factors</h4>
-                            </div>
-                            <div class="card-body">
-                                <ul class="risk-list">
-                                    <li class="risk-item high">
-                                        <span class="risk-name">Smoking</span>
-                                        <span class="risk-impact">High Impact</span>
+                        <div class="recommendations">
+                            <h3>Recommendations</h3>
+                            <ul class="recommendation-list">
+                                {% for rec in recommendations %}
+                                    <li>
+                                        <i class="fas fa-{{ rec.title | lower | slugify | slice:':10' }}-circle"></i>
+                                        <div>
+                                            <h4>{{ rec.title }}</h4>
+                                            <p>{{ rec.description }}</p>
+                                        </div>
                                     </li>
-                                    <li class="risk-item medium">
-                                        <span class="risk-name">Family History</span>
-                                        <span class="risk-impact">Medium Impact</span>
-                                    </li>
-                                    <li class="risk-item low">
-                                        <span class="risk-name">Stress Level</span>
-                                        <span class="risk-impact">Low Impact</span>
-                                    </li>
-                                    <li class="risk-item none">
-                                        <span class="risk-name">Exercise</span>
-                                        <span class="risk-impact">No Impact</span>
-                                    </li>
-                                </ul>
-                            </div>
+                                {% endfor %}
+                            </ul>
                         </div>
                     </div>
-                    
-                    <div class="recommendations">
-                        <h3>Recommendations</h3>
-                        <ul class="recommendation-list">
-                            <li>
-                                <i class="fas fa-check-circle"></i>
-                                <div>
-                                    <h4>Maintain Regular Exercise</h4>
-                                    <p>Continue with your current exercise routine of at least 150 minutes per week.</p>
-                                </div>
-                            </li>
-                            <li>
-                                <i class="fas fa-check-circle"></i>
-                                <div>
-                                    <h4>Healthy Diet</h4>
-                                    <p>Focus on a diet rich in fruits, vegetables, whole grains, and lean proteins.</p>
-                                </div>
-                            </li>
-                            <li>
-                                <i class="fas fa-exclamation-circle"></i>
-                                <div>
-                                    <h4>Quit Smoking</h4>
-                                    <p>Consider smoking cessation programs to reduce your heart disease risk significantly.</p>
-                                </div>
-                            </li>
-                            <li>
-                                <i class="fas fa-info-circle"></i>
-                                <div>
-                                    <h4>Regular Check-ups</h4>
-                                    <p>Schedule annual check-ups with your healthcare provider to monitor your heart health.</p>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
 
-                <div class="next-steps">
-                    <h3>Next Steps</h3>
-                    <div class="next-steps-buttons">
-                        <a href="risk_assessment.html" class="btn-secondary">New Assessment</a>
-                        <a href="#" class="btn-primary">Schedule Follow-up</a>
+                    <div class="next-steps">
+                        <h3>Next Steps</h3>
+                        <div class="next-steps-buttons">
+                            <a href="{% url 'risk_assessment' %}" class="btn-secondary">New Assessment</a>
+                            <a href="#" class="btn-primary">Schedule Follow-up</a>
+                        </div>
                     </div>
                 </div>
-            </div>
+            {% endif %}
         </main>
     </div>
 
     <footer class="dashboard-footer">
         <div class="container">
-            <p>&copy; 2025 HeartGuard AI. All rights reserved.</p>
+            <p>© 2025 HeartGuard AI. All rights reserved.</p>
         </div>
     </footer>
 </body>

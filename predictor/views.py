@@ -2,8 +2,8 @@ import joblib
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib import messages
-from django.contrib.auth import login, authenticate, logout
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth import authenticate, logout
+from django.contrib.auth import login as auth_login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.utils import timezone
@@ -11,6 +11,7 @@ from .forms import CustomRegistrationForm, CustomLoginForm
 import numpy as np
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.preprocessing import StandardScaler
+from .models import Prediction
 
 def home(request):
     return render(request, "features/home.html")
@@ -27,7 +28,7 @@ def register(request):
         if form.is_valid():
             user = form.save()
             auth_login(request, user)
-            messages.success(request, "Registration successful. You are now logged in.")
+            messages.success(request, "Registration successful. You are now registered.")
             return redirect("home")
         else:
             for field, errors in form.errors.items():
@@ -53,7 +54,7 @@ def user_login(request):
         if user is not None:
             user.last_login = timezone.now()
             user.save()
-            login(request, user)
+            auth_login(request, user)
 
             if not remember:
                 request.session.set_expiry(0)
@@ -77,6 +78,11 @@ def logout_view(request):
     logout(request)
     messages.success(request, "You have been logged out.")
     return redirect('login')
+
+def history(request):
+    results = Prediction.objects.filter(user=request.user).order_by('-created_at')
+    return render(request, 'history.html', {'results': results})
+
 
 
 # Load the model from the file
