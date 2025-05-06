@@ -10,5 +10,4 @@ urlpatterns = [
     path("login", views.user_login, name="login"),
     path("logout", views.logout_view, name="logout"),
     path("predict", views.prediction_result, name="predict"),
-    path('history/', views.history, name='history'),
 ]

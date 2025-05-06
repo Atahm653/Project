@@ -19,9 +19,7 @@
             <nav>
                 <ul>
                     <li><a href="{% url 'risk' %}">Dashboard</a></li>
-                    <!--<li><a href="{% url 'history' %}">History</a></li>
-                    <li><a href="{% url 'profile' %}">Profile</a></li>-->
-                    <li><a href="{% url 'signout' %}" class="btn-secondary">Sign Out</a></li>
+                    <li><a href="{% url 'logout' %}" class="btn-secondary">Sign Out</a></li>
                 </ul>
             </nav>
         </div>
@@ -38,15 +36,12 @@
             </div>
             <nav class="sidebar-nav">
                 <ul>
-                    <li><a href="{% url 'dashboard' %}"><i class="fas fa-home"></i> Dashboard</a></li>
+                    <li><a href="{% url 'risk' %}"><i class="fas fa-home"></i> Dashboard</a></li>
                     <li><a href="#" class="active"><i class="fas fa-chart-line"></i> My Results</a></li>
-                    <li><a href="{% url 'history' %}"><i class="fas fa-history"></i> History</a></li>
-                    <li><a href="{% url 'profile' %}"><i class="fas fa-user-cog"></i> Profile Settings</a></li>
-                    <li><a href="{% url 'support' %}"><i class="fas fa-question-circle"></i> Help & Support</a></li>
                 </ul>
             </nav>
             <div class="sidebar-footer">
-                <a href="{% url 'signout' %}"><i class="fas fa-sign-out-alt"></i> Sign Out</a>
+                <a href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i> Sign Out</a>
             </div>
         </aside>
 
@@ -165,7 +160,7 @@
                     <div class="next-steps">
                         <h3>Next Steps</h3>
                         <div class="next-steps-buttons">
-                            <a href="{% url 'risk_assessment' %}" class="btn-secondary">New Assessment</a>
+                            <a href="{% url 'risk' %}" class="btn-secondary">New Assessment</a>
                             <a href="#" class="btn-primary">Schedule Follow-up</a>
                         </div>
                     </div>

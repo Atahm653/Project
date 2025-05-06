@@ -19,8 +19,6 @@
             <nav>
                 <ul>
                     <li><a href="risk_assessment.html" class="active">Dashboard</a></li>
-                    <li><a href="history.html">History</a></li>
-                    <li><a href="profile.html">Profile</a></li>
                     <li><a href="home" class="btn-secondary">Sign Out</a></li>
                 </ul>
             </nav>
@@ -40,8 +38,6 @@
                 <ul>
                     <li><a href="risk_assessment.html" class="active"><i class="fas fa-home"></i> Dashboard</a></li>
                     <li><a href="#"><i class="fas fa-chart-line"></i> My Results</a></li>
-                    <li><a href="#"><i class="fas fa-history"></i> History</a></li>
-                    <li><a href="#"><i class="fas fa-user-cog"></i> Profile Settings</a></li>
                     <li><a href="#"><i class="fas fa-question-circle"></i> Help & Support</a></li>
                 </ul>
             </nav>
@@ -132,13 +128,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="stress">Stress Level</label>
-                                <select id="stress" name="stress" required>
-                                    <option value="">Select level</option>
-                                    <option value="low">Low</option>
-                                    <option value="moderate">Moderate</option>
-                                    <option value="high">High</option>
-                                    <option value="severe">Severe</option>
-                                </select>
+                                <input type="number" id="stress" name="stress" min="o" max="10" required>
                             </div>
                         </div>
                     </div>

@@ -1,9 +1,8 @@
 from django.contrib import admin
+from .models import Prediction
 
-# Register your models here.
-
-from .models import UserProfile, Prediction, RiskAssessment
-
-admin.site.register(UserProfile)
-admin.site.register(Prediction)
-admin.site.register(RiskAssessment)
+@admin.register(Prediction)
+class PredictionAdmin(admin.ModelAdmin):
+    list_display = ('user', 'risk_percentage', 'risk_level', 'assessment_date')
+    list_filter = ('risk_level', 'assessment_date')
+    search_fields = ('user__username', 'risk_level')

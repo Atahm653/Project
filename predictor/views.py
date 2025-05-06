@@ -4,6 +4,7 @@ from django.http import HttpResponse
 from django.contrib import messages
 from django.contrib.auth import authenticate, logout
 from django.contrib.auth import login as auth_login
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.utils import timezone
@@ -11,7 +12,7 @@ from .forms import CustomRegistrationForm, CustomLoginForm
 import numpy as np
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.preprocessing import StandardScaler
-from .models import Prediction
+from .models import Prediction  # Add this import
 
 def home(request):
     return render(request, "features/home.html")
@@ -34,7 +35,6 @@ def register(request):
             for field, errors in form.errors.items():
                 for error in errors:
                     messages.error(request, f"{field}: {error}")
-
     else:
         storage = messages.get_messages(request)
         storage.used = True
@@ -61,14 +61,12 @@ def user_login(request):
 
             messages.success(request, "Login successful!")
             return redirect('risk')
-
         else:
             if not User.objects.filter(username=username).exists():
                 messages.error(request, "User does not exist.")
             else:
                 messages.error(request, "Invalid password.")
             return render(request, "registration/login.html")
-
     else:
         storage = messages.get_messages(request)
         storage.used = True
@@ -78,12 +76,6 @@ def logout_view(request):
     logout(request)
     messages.success(request, "You have been logged out.")
     return redirect('login')
-
-def history(request):
-    results = Prediction.objects.filter(user=request.user).order_by('-created_at')
-    return render(request, 'history.html', {'results': results})
-
-
 
 # Load the model from the file
 knn_model = joblib.load('models/knn_model.pkl')
@@ -95,7 +87,7 @@ print("KNN model type:", type(knn_model))
 print("Scaler mean:", scaler.mean_)  
 print("Scaler std:", scaler.scale_)  
 
-
+@login_required
 def prediction_result(request):
     if request.method == 'POST':
         try:
@@ -115,7 +107,6 @@ def prediction_result(request):
             exercise_induced_angina = float(request.POST.get('exercise_induced_angina', 0))
             chest_pain_type = float(request.POST.get('chest_pain_type', 0))
 
-           
             input_data = np.array([[age, gender, cholesterol, blood_pressure, heart_rate, smoking, 
                                    alcohol_intake, exercise_hours, family_history, diabetes, obesity, 
                                    stress_level, blood_sugar, exercise_induced_angina, chest_pain_type]])
@@ -125,12 +116,61 @@ def prediction_result(request):
             prediction = knn_model.predict(input_data_scaled)
             prediction_result = "Heart Disease" if prediction[0] == 1 else "No Heart Disease"
 
-            return render(request, 'features/prediction_result.html', {'prediction_result': prediction_result})
+            # Map prediction result to risk percentage and level
+            risk_percentage = 80.0 if prediction[0] == 1 else 20.0
+            risk_level = "High" if prediction[0] == 1 else "Low"
 
-        
+            # Save the prediction to the database
+            Prediction.objects.create(
+                user=request.user,
+                risk_percentage=risk_percentage,
+                risk_level=risk_level,
+                input_data={
+                    'age': age,
+                    'gender': gender,
+                    'cholesterol': cholesterol,
+                    'blood_pressure': blood_pressure,
+                    'heart_rate': heart_rate,
+                    'smoking': smoking,
+                    'alcohol_intake': alcohol_intake,
+                    'exercise_hours': exercise_hours,
+                    'family_history': family_history,
+                    'diabetes': diabetes,
+                    'obesity': obesity,
+                    'stress_level': stress_level,
+                    'blood_sugar': blood_sugar,
+                    'exercise_induced_angina': exercise_induced_angina,
+                    'chest_pain_type': chest_pain_type,
+                }
+            )
+
+            context = {
+                'risk_percentage': risk_percentage,
+                'risk_level': risk_level,
+                'assessment_date': timezone.now().strftime('%B %d, %Y'),
+                'metrics': {
+                    'blood_pressure': f"{blood_pressure}/80 mmHg",
+                    'cholesterol': f"{cholesterol} mg/dL",
+                    'heart_rate': f"{heart_rate} BPM",
+                    'blood_sugar': f"{blood_sugar} mg/dL",
+                },
+                'risk_factors': {
+                    'smoking': 'High Impact' if smoking else 'No Impact',
+                    'family_history': 'Medium Impact' if family_history else 'No Impact',
+                    'stress_level': 'Low Impact' if stress_level < 5 else 'Medium Impact',
+                    'exercise': 'No Impact' if exercise_hours > 0 else 'Low Impact',
+                },
+                'recommendations': [
+                    {'title': 'Maintain Regular Exercise', 'description': 'Continue with at least 150 minutes per week.'},
+                    {'title': 'Healthy Diet', 'description': 'Focus on fruits, vegetables, whole grains, and lean proteins.'},
+                    {'title': 'Quit Smoking', 'description': 'Consider smoking cessation programs.'} if smoking else None,
+                    {'title': 'Regular Check-ups', 'description': 'Schedule annual check-ups.'},
+                ]
+            }
+            context['recommendations'] = [r for r in context['recommendations'] if r]
+            return render(request, 'features/prediction_result.html', context)
+
         except Exception as e:
             return render(request, 'features/prediction_result.html', {'error': f'An error occurred: {str(e)}'})
 
     return render(request, 'features/prediction_result.html')
-
-# Create your views here.
