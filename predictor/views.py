@@ -23,6 +23,9 @@ def risk_assessment(request):
 def about(request):
     return render(request, "features/about.html")
 
+def contact(request):
+    return render(request, "features/contact.html")
+
 def register(request):
     if request.method == "POST":
         form = CustomRegistrationForm(request.POST)

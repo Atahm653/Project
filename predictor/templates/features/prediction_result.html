@@ -37,7 +37,7 @@
             <nav class="sidebar-nav">
                 <ul>
                     <li><a href="{% url 'risk' %}"><i class="fas fa-home"></i> Dashboard</a></li>
-                    <li><a href="#" class="active"><i class="fas fa-chart-line"></i> My Results</a></li>
+                    <!--<li><a href="#" class="active"><i class="fas fa-chart-line"></i> My Results</a></li>-->
                 </ul>
             </nav>
             <div class="sidebar-footer">
@@ -71,10 +71,10 @@
                         <div class="result-interpretation">
                             <h3>{{ risk_level }} Risk of Heart Disease</h3>
                             <p>Based on your provided information, our AI model predicts a {{ risk_level | lower }} risk of heart disease. Maintain a healthy lifestyle and regular check-ups.</p>
-                            <div class="result-actions">
+                            <!--<div class="result-actions">
                                 <a href="#" class="btn-primary"><i class="fas fa-download"></i> Download Report</a>
                                 <a href="#" class="btn-secondary"><i class="fas fa-share-alt"></i> Share with Doctor</a>
-                            </div>
+                            </div>-->
                         </div>
                     </div>
 
@@ -161,7 +161,6 @@
                         <h3>Next Steps</h3>
                         <div class="next-steps-buttons">
                             <a href="{% url 'risk' %}" class="btn-secondary">New Assessment</a>
-                            <a href="#" class="btn-primary">Schedule Follow-up</a>
                         </div>
                     </div>
                 </div>
