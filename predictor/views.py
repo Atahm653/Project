@@ -12,7 +12,7 @@ from .forms import CustomRegistrationForm, CustomLoginForm
 import numpy as np
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.preprocessing import StandardScaler
-from .models import Prediction  # Add this import
+from .models import Prediction 
 
 def home(request):
     return render(request, "features/home.html")

@@ -18,8 +18,8 @@
             </div>
             <nav>
                 <ul>
-                    <li><a href="risk_assessment.html" class="active">Dashboard</a></li>
-                    <li><a href="home" class="btn-secondary">Sign Out</a></li>
+                    <li><a href="{% url 'risk' %}" class="active">Dashboard</a></li>
+                    <li><a href="{% url 'logout' %}" class="btn-secondary">Sign Out</a></li>
                 </ul>
             </nav>
         </div>
@@ -31,18 +31,18 @@
                 <div class="user-avatar">
                     <i class="fas fa-user"></i>
                 </div>
-                <h3>Welcome, User</h3>
+                <h3>Welcome, {{ user.username|default:"User" }}</h3>
                 <p>Last assessment: Never</p>
             </div>
             <nav class="sidebar-nav">
                 <ul>
-                    <li><a href="risk_assessment.html" class="active"><i class="fas fa-home"></i> Dashboard</a></li>
+                    <li><a href="{% url 'risk' %}" class="active"><i class="fas fa-home"></i> Dashboard</a></li>
                     <li><a href="#"><i class="fas fa-chart-line"></i> My Results</a></li>
                     <li><a href="#"><i class="fas fa-question-circle"></i> Help & Support</a></li>
                 </ul>
             </nav>
             <div class="sidebar-footer">
-                <a href="home.html"><i class="fas fa-sign-out-alt"></i> Sign Out</a>
+                <a href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i> Sign Out</a>
             </div>
         </aside>
 
@@ -53,7 +53,8 @@
             </div>
 
             <div class="assessment-form-container">
-                <form method="GET" action="{% url 'predict' %}" class="assessment-form">
+                <form method="POST" action="{% url 'predict' %}" class="assessment-form">
+                    {% csrf_token %}
                     <div class="form-section">
                         <h3>Personal Information</h3>
                         <div class="form-row">
@@ -65,9 +66,8 @@
                                 <label for="gender">Gender</label>
                                 <select id="gender" name="gender" required>
                                     <option value="">Select gender</option>
-                                    <option value="male">Male</option>
-                                    <option value="female">Female</option>
-                                    <!--<option value="other">Other</option>-->
+                                    <option value="0">Female</option>
+                                    <option value="1">Male</option>
                                 </select>
                             </div>
                         </div>
@@ -81,22 +81,20 @@
                                 <input type="number" id="cholesterol" name="cholesterol" min="100" max="500" required>
                             </div>
                             <div class="form-group">
-                                <label for="blood-pressure">Blood Pressure (mmHg)</label>
+                                <label for="blood_pressure">Blood Pressure (mmHg)</label>
                                 <div class="bp-inputs">
-                                    <input type="number" id="blood-pressure" name="blood-pressure" min="70" max="250" required>
-                                    <!--<span>/</span>
-                                    <input type="number" id="diastolic" name="diastolic" placeholder="Diastolic" min="40" max="150" required>-->
+                                    <input type="number" id="blood_pressure" name="blood_pressure" min="70" max="250" required>
                                 </div>
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group">
-                                <label for="heart-rate">Heart Beat Rate (BPM)</label>
-                                <input type="number" id="heart-rate" name="heart-rate" min="40" max="220" required>
+                                <label for="heart_rate">Heart Beat Rate (BPM)</label>
+                                <input type="number" id="heart_rate" name="heart_rate" min="40" max="220" required>
                             </div>
                             <div class="form-group">
-                                <label for="blood-sugar">Blood Sugar (mg/dL)</label>
-                                <input type="number" id="blood-sugar" name="blood-sugar" min="70" max="600" required>
+                                <label for="blood_sugar">Blood Sugar (mg/dL)</label>
+                                <input type="number" id="blood_sugar" name="blood_sugar" min="70" max="600" required>
                             </div>
                         </div>
                     </div>
@@ -108,27 +106,27 @@
                                 <label for="smoking">Do you smoke?</label>
                                 <select id="smoking" name="smoking" required>
                                     <option value="">Select option</option>
-                                    <option value="yes">Yes</option>
-                                    <option value="no">No</option>
+                                    <option value="1">Yes</option>
+                                    <option value="0">No</option>
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label for="alcohol">Alcohol Intake</label>
-                                <select id="alcohol" name="alcohol" required>
+                                <label for="alcohol_intake">Alcohol Intake</label>
+                                <select id="alcohol_intake" name="alcohol_intake" required>
                                     <option value="">Select option</option>
-                                    <option value="yes">Yes</option>
-                                    <option value="no">No</option>
+                                    <option value="1">Yes</option>
+                                    <option value="0">No</option>
                                 </select>
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group">
-                                <label for="exercise">Exercise Hours (per week)</label>
-                                <input type="number" id="exercise" name="exercise" min="0" max="50" step="0.5" required>
+                                <label for="exercise_hours">Exercise Hours (per week)</label>
+                                <input type="number" id="exercise_hours" name="exercise_hours" min="0" max="50" step="0.5" required>
                             </div>
                             <div class="form-group">
-                                <label for="stress">Stress Level</label>
-                                <input type="number" id="stress" name="stress" min="o" max="10" required>
+                                <label for="stress_level">Stress Level</label>
+                                <input type="number" id="stress_level" name="stress_level" min="0" max="10" required>
                             </div>
                         </div>
                     </div>
@@ -137,49 +135,49 @@
                         <h3>Medical History</h3>
                         <div class="form-row">
                             <div class="form-group">
-                                <label for="family-history">Family History of Heart Disease</label>
-                                <select id="family-history" name="family-history" required>
+                                <label for="family_history">Family History of Heart Disease</label>
+                                <select id="family_history" name="family_history" required>
                                     <option value="">Select option</option>
-                                    <option value="yes">Yes</option>
-                                    <option value="no">No</option>
+                                    <option value="1">Yes</option>
+                                    <option value="0">No</option>
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label for="diabetic">Are you Diabetic?</label>
-                                <select id="diabetic" name="diabetic" required>
+                                <label for="diabetes">Are you Diabetic?</label>
+                                <select id="diabetes" name="diabetes" required>
                                     <option value="">Select option</option>
-                                    <option value="yes">Yes</option>
-                                    <option value="no">No</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="obese">Are you Obese?</label>
-                                <select id="obese" name="obese" required>
-                                    <option value="">Select option</option>
-                                    <option value="yes">Yes</option>
-                                    <option value="no">No</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="angina">Exercise Induced Angina</label>
-                                <select id="angina" name="angina" required>
-                                    <option value="">Select option</option>
-                                    <option value="yes">Yes</option>
-                                    <option value="no">No</option>
+                                    <option value="1">Yes</option>
+                                    <option value="0">No</option>
                                 </select>
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group">
-                                <label for="chest-pain">Chest Pain Type</label>
-                                <select id="chest-pain" name="chest-pain" required>
+                                <label for="obesity">Are you Obese?</label>
+                                <select id="obesity" name="obesity" required>
+                                    <option value="">Select option</option>
+                                    <option value="1">Yes</option>
+                                    <option value="0">No</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="exercise_induced_angina">Exercise Induced Angina</label>
+                                <select id="exercise_induced_angina" name="exercise_induced_angina" required>
+                                    <option value="">Select option</option>
+                                    <option value="1">Yes</option>
+                                    <option value="0">No</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="chest_pain_type">Chest Pain Type</label>
+                                <select id="chest_pain_type" name="chest_pain_type" required>
                                     <option value="">Select type</option>
-                                    <option value="typical">Typical Angina</option>
-                                    <option value="atypical">Atypical Angina</option>
-                                    <option value="non-anginal">Non-Anginal Pain</option>
-                                    <option value="asymptomatic">Asymptomatic</option>
+                                    <option value="0">Typical Angina</option>
+                                    <option value="1">Atypical Angina</option>
+                                    <option value="2">Non-Anginal Pain</option>
+                                    <option value="3">Asymptomatic</option>
                                 </select>
                             </div>
                         </div>
@@ -196,7 +194,7 @@
 
     <footer class="dashboard-footer">
         <div class="container">
-            <p>&copy; 2025 HeartGuard AI. All rights reserved.</p>
+            <p>© 2025 HeartGuard AI. All rights reserved.</p>
         </div>
     </footer>
 </body>
