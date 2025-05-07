@@ -679,6 +679,7 @@ input:focus, select:focus, textarea:focus {
     padding: 12px 20px;
     color: var(--text-color);
     transition: all var(--transition-speed);
+    flex-direction: row;
 }
 
 .sidebar-nav ul li a:hover, .sidebar-nav ul li a.active {
